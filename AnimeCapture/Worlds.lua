@@ -13,6 +13,8 @@ function module:GetInfo(Manager, WorldName: string)
             return Info
         end
     end
+
+    return not WorldName and self.Cache or nil
 end
 
 return module

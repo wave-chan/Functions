@@ -40,7 +40,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         if Loop or not Manager.Utils.Loop then continue end
 
         Manager.Cache.Loops[LoopId] = Manager.Utils.Loop:Connect(LoopCooldown, function()
-            Functions:Upgrade(ProgressionInfo.Name)
+            self:Upgrade(ProgressionInfo.Name)
         end, function()
             return Toggle and Toggle.Value
         end)
@@ -69,7 +69,6 @@ function module:Upgrade(Manager, ProgressionName: string)
     end
 
     Manager:Signal("UpgradeProgressionEvent", ProgressionInfo.Index)
-
 end
 
 return module

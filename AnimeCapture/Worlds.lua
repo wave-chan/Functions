@@ -6,6 +6,7 @@ function module:GetInfo(Manager, WorldName: string)
     if Cache then return Cache end
 
     for Index, Info in ipairs(Manager.Shared.Worlds) do
+        Info.CacheIndex = Index
         self.Cache[Info.Name] = Info
 
         if Info.Name == WorldName then

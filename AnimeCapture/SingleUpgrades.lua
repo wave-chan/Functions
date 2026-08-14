@@ -14,7 +14,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         UpgradeInfo.Name = ResourceInfo.Description:gsub("Used in ", "")
         UpgradeInfo.Index = UpgradeIndex
 
-        module.Cache[UpgradeInfo.Name] = UpgradeInfo
+        self.Cache[UpgradeInfo.Name] = UpgradeInfo
 
         local LoopId = `SingleUpgrade{UpgradeInfo.Name}`
         local ToggleId = `autoSingleUpgrade_{UpgradeInfo.Name}`

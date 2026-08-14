@@ -25,7 +25,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         if Loop or not Manager.Utils.Loop then continue end
 
         Manager.Cache.Loops[LoopId] = Manager.Utils.Loop:Connect(LoopCooldown, function()
-            Functions:Upgrade(Manager, UpgradeInfo.Name)
+            self:Upgrade(Manager, UpgradeInfo.Name)
         end, function()
             return Toggle and Toggle.Value
         end)

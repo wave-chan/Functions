@@ -24,7 +24,7 @@ end
 
 function module:Init(Manager, Tab, LoopCooldown)
 
-    module:GetProgressionInfo(Manager)
+    self:GetProgressionInfo(Manager)
 
     LoopCooldown = LoopCooldown or 0.05
     local Section = Tab:AddSection("Progressions")

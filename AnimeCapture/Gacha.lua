@@ -25,7 +25,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         local LoopId = `GachaRoll{GachaInfo.Name}`
         local ToggleId = `autoRollGacha_{GachaInfo.Name}`
 
-        Section:AddToggle(ToggleId, {Title = `Auto Roll {GachaInfo.Name}`, Default = false })
+        local Toggle = Section:AddToggle(ToggleId, {Title = `Auto Roll {GachaInfo.Name}`, Default = false })
 
         local Loop = Manager.Cache.Loops[LoopId]
         if Loop or not Manager.Utils.Loop then continue end
@@ -33,7 +33,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         Manager.Cache.Loops[LoopId] = Manager.Utils.Loop:Connect(LoopCooldown, function()
             self:RollGacha(Manager, GachaInfo.Name)
         end, function()
-            return Options[ToggleId] and Options[ToggleId].Value
+            return Toggle and Toggle.Value
         end)
 
     end

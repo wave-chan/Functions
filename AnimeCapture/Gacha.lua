@@ -31,7 +31,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         if Loop or not Manager.Utils.Loop then continue end
 
         Manager.Cache.Loops[LoopId] = Manager.Utils.Loop:Connect(LoopCooldown, function()
-            self:RollGacha(Manager, GachaInfo.Name)
+            self:Roll(Manager, GachaInfo.Name)
         end, function()
             return Toggle and Toggle.Value
         end)
@@ -39,7 +39,7 @@ function module:Init(Manager, Tab, LoopCooldown)
     end
 end
 
-function module:RollGacha(Manager, GachaName: string)
+function module:Roll(Manager, GachaName: string)
 
     --## INFO ##--
     local GachaInfo = self:GetGachaInfo(Manager, GachaName)

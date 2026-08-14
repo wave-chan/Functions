@@ -49,7 +49,6 @@ function module:RollGacha(Manager, GachaName: string)
     local GachaDiscount = 1 - (Manager.Data.GachaDiscount or 0)
     local GachaCost = GachaInfo.RollCost.Amount * GachaDiscount
     local CanRoll = (Manager.Data.Resources[GachaInfo.RollCost.Resource] or 0) >= GachaCost
-    print(Manager.Data.Resources[GachaInfo.RollCost.Resource] or 0)
 
     if not CanRoll then
         return

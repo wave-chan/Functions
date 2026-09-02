@@ -55,7 +55,7 @@ function module:GetGachaInfo(TargetName: string)
     local Cache = self.Cache[TargetName]
     if Cache then return Cache end
 
-    for GachaName, GachaInfo in pairs(Manager.Shared.Gachas) do
+    for GachaName, GachaInfo in pairs(Manager.Library.Shared.Gachas) do
         local HasPossibleNames = GachaInfo.Information.PossibleNames
         
         if HasPossibleNames then

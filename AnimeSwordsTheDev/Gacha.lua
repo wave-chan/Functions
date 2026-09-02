@@ -14,7 +14,7 @@ function module:Init(OwnManager, Tab, LoopCooldown)
         table.insert(GachaArray, GachaInfo.Information.Index + #GachaArray, GachaName)
     end
 
-    for Index, GachaName in ipairs(Manager.Library.Shared.Gachas) do
+    for Index, GachaName in ipairs(GachaArray) do
     
         local LoopId = `GachaRoll{GachaName}`
         local ToggleId = `autoRollGacha_{GachaName}`

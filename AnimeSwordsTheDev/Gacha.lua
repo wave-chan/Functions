@@ -16,7 +16,13 @@ function module:Init(OwnManager, Tab, LoopCooldown)
             AuxArray[Index] = {}
         end
 
-        table.insert(AuxArray[Index], GachaName)
+        if GachaInfo.Information.PossibleNames then
+            for _, PossibleName in ipairs(GachaInfo.Information.PossibleNames) do
+                table.insert(AuxArray[Index], PossibleName)
+            end
+        else
+            table.insert(AuxArray[Index], GachaName)
+        end
     end
 
     local GachaArray = {}

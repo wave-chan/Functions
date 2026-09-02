@@ -13,7 +13,7 @@ function module:Init(OwnManager, Tab, LoopCooldown)
         local Index = GachaInfo.Information.Index or 1
         
         if not AuxArray[Index] then
-            table.insert(AuxArray, Index, {})
+            AuxArray[Index] = {}
         end
 
         table.insert(AuxArray[Index], GachaName)

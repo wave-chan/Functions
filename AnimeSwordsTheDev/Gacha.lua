@@ -8,10 +8,22 @@ function module:Init(OwnManager, Tab, LoopCooldown)
     LoopCooldown = LoopCooldown or 0.05
     local Section = Tab:AddSection("Gachas")
 
-    local GachaArray = {}
+    local AuxArray = {}
     for GachaName, GachaInfo in pairs(Manager.Library.Shared.Gachas) do
-        GachaInfo.Information.Index = GachaInfo.Information.Index or 1
-        table.insert(GachaArray, GachaInfo.Information.Index + #GachaArray, GachaName)
+        local Index = GachaInfo.Information.Index or 1
+        
+        if not AuxArray[Index] then
+            AuxArray[Index] = {}
+        end
+
+        table.insert(AuxArray[Index], GachaName)
+    end
+
+    local GachaArray = {}
+    for CategoryIndex, Table in ipairs(AuxArray) do
+        for GachaIndex, GachaName in ipairs(Table) do
+            table.insert(GachaArray, (CategoryIndex - 1) + GachaIndex, GachaName)
+        end
     end
 
     for Index, GachaName in ipairs(GachaArray) do

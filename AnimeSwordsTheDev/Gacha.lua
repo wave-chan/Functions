@@ -13,15 +13,17 @@ function module:Init(OwnManager, Tab, LoopCooldown)
         local Index = GachaInfo.Information.Index or 1
         
         if not AuxArray[Index] then
-            AuxArray[Index] = {}
+            table.insert(AuxArray, Index, {})
         end
 
+        print("Added category index", Index, GachaName)
         table.insert(AuxArray[Index], GachaName)
     end
 
     local GachaArray = {}
     for CategoryIndex, Table in ipairs(AuxArray) do
         for GachaIndex, GachaName in ipairs(Table) do
+            print("Added category", CategoryIndex - 1, "added gacha index", GachaIndex, GachaName, "|", (CategoryIndex - 1) + GachaIndex)
             table.insert(GachaArray, (CategoryIndex - 1) + GachaIndex, GachaName)
         end
     end

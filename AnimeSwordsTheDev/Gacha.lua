@@ -1,8 +1,10 @@
 --## SCRIPT ##--
 local module = { Cache = {}, }
+local Manager
 
-function module:Init(Manager, Tab, LoopCooldown)
-
+function module:Init(OwnManager, Tab, LoopCooldown)
+    Manager = OwnManager
+    
     LoopCooldown = LoopCooldown or 0.05
     local Section = Tab:AddSection("Gachas")
 
@@ -23,7 +25,7 @@ function module:Init(Manager, Tab, LoopCooldown)
         if Loop or not Manager.Utils.Loop then continue end
 
         Manager.Cache.Loops[LoopId] = Manager.Utils.Loop:Connect(LoopCooldown, function()
-            self:Roll(Manager, GachaName)
+            self:Roll(GachaName)
         end, function()
             return Toggle and Toggle.Value
         end)
@@ -31,7 +33,7 @@ function module:Init(Manager, Tab, LoopCooldown)
     end
 end
 
-function module:Roll(Manager, GachaName: string)
+function module:Roll(GachaName: string)
 
     --## INFO ##--
     local GachaInfo = Manager.Library.Shared.Gachas[GachaName]

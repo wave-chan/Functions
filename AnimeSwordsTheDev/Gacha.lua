@@ -51,10 +51,33 @@ function module:Init(OwnManager, Tab, LoopCooldown)
     end
 end
 
+function module:GetGachaInfo(TargetName: string)
+    local Cache = self.Cache[TargetName]
+    if Cache then return Cache end
+
+    for GachaName, GachaInfo in pairs(Manager.Shared.Gachas) do
+        local HasPossibleNames = GachaInfo.Information.PossibleNames
+        
+        if HasPossibleNames then
+            for _, PossibleName in ipairs(HasPossibleNames) do
+                self.Cache[PossibleName] = GachaInfo
+                if PossibleName == TargetName then
+                    return GachaInfo
+                end
+            end
+        else
+            self.Cache[GachaName] = GachaInfo
+            if GachaName == TargetName then
+                return GachaInfo
+            end
+        end
+    end
+end
+
 function module:Roll(GachaName: string)
 
     --## INFO ##--
-    local GachaInfo = Manager.Library.Shared.Gachas[GachaName]
+    local GachaInfo = self:GetGachaInfo(GachaName)
     if not GachaInfo then return end
 
     --## CHECKS ##--

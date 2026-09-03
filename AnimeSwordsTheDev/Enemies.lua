@@ -13,7 +13,13 @@ function module:IsSameWorld(EnemyTable)
     local EnemyFolder = EnemyTable.Instance and EnemyTable.Instance.Parent
     if not EnemyFolder then return end
 
-    return EnemyFolder.Name == Current
+    local EnemyMap = EnemyFolder.Name
+    if not EnemyMap then return end
+
+    Current = string.gsub(Current, " ", "")
+    EnemyMap = string.gsub(EnemyMap, " ", "")
+
+    return Current == EnemyMap
 end
 
 function module:GetClosest(EnemiesSelected: {}, Settings: {})

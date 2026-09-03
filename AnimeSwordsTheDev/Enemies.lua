@@ -19,6 +19,8 @@ function module:IsSameWorld(EnemyTable)
     Current = string.gsub(Current, " ", "")
     EnemyMap = string.gsub(EnemyMap, " ", "")
 
+    print(Current, EnemyMap)
+
     return Current == EnemyMap
 end
 

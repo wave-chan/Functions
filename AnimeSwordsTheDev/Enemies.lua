@@ -6,6 +6,16 @@ function module:Init(OwnManager)
     Manager = OwnManager
 end
 
+function module:IsSameWorld(EnemyTable)
+    local Current = Manager.Player:GetAttribute("Mode") or Manager.Library.Data.Map
+    if not Current then return end
+
+    local EnemyFolder = EnemyTable.Instance and EnemyTable.Instance.Parent
+    if not EnemyFolder then return end
+
+    return EnemyFolder.Name == Current
+end
+
 function module:GetClosest(EnemiesSelected: {}, Settings: {})
     local Character, HRP = Manager.Utils.Character:Get()
     if not Character or not HRP then return {} end
@@ -19,6 +29,7 @@ function module:GetClosest(EnemiesSelected: {}, Settings: {})
     local ClosestEnemy = { Magnitude = math.huge }
     for EnemyId, EnemyTable in pairs(Manager.Library.Enemies) do
         if typeof(EnemyTable) ~= "table" then continue end
+        if not self:IsSameWorld(EnemyTable) then continue end
 
         local EnemyName = EnemyTable.Name
         if not EnemyName then continue end

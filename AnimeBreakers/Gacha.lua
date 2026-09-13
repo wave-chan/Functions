@@ -75,7 +75,7 @@ function module:Roll(GachaName: string, GachaType: string)
     if not TypeInfo then return end
   
     --## CHECKS ##--
-    local GachaCost = (TypeInfo.CostAmount or 10) * 0.70
+    local GachaCost = (TypeInfo.CostAmount or 10) * (Manager.Library.PlayerData.Gamepasses.VIP and 0.70 or 1)
     local CanRoll = (Manager.Library.PlayerData.Items[TypeInfo.Currency] or 0) >= GachaCost
 
     if not CanRoll then

@@ -10,7 +10,7 @@ function module:Init(OwnManager, Tab, LoopCooldown)
 
     local AuxArray = {}
     for GachaName, GachaInfo in pairs(Manager.Shared.GachaConfig) do
-        if not GachaInfo.SelectGacha then continue end
+        if GachaInfo.SelectGacha then continue end
         local Index = (Manager.Shared.MapData[GachaInfo.Map or "Lobby"].Order or 0) + 1
         
         if not AuxArray[Index] then

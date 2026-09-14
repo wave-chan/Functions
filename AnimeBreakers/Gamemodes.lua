@@ -118,6 +118,7 @@ function module:Auto(ModeId: string)
 
     local GamemodeData = self:GetData()
     local IsWaveToLeave = Settings.Leave and Settings.Wave ~= 0 and GamemodeData and GamemodeData.Wave and GamemodeData.Wave >= Settings.Wave
+    print("IsWaveToLeave", IsWaveToLeave)
 
     if IsWaveToLeave then
         Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
@@ -127,6 +128,7 @@ function module:Auto(ModeId: string)
 
     local PlrModeId = Manager.Player:GetAttribute("Mode")
     if not PlrModeId and Settings.EntryType == "Join" then
+        print("trying to join", ModeId, Settings.MapId)
         local Diff, HostId = self:GetJoinInfo(ModeId, Settings.MapId)
         if not HostId then return end
 
@@ -134,8 +136,9 @@ function module:Auto(ModeId: string)
         Manager:Signal("GamemodeSystem", "Join", ModeId, HostId)
         return
     elseif not PlrModeId and Settings.EntryType == "Create" then
-        local NeededItem = Manager.Shared.GamemodeData[ModeId][Settings.MapId]
-        if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then return end
+        print("trying to create", ModeId, Settings.MapId)
+        local NeededItem = Manager.Shared.GamemodeData[ModeId][Settings.MapId] and Manager.Shared.GamemodeData[ModeId][Settings.MapId].RequiredItem
+        if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then print("not enough items") return end
         
         Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
         Manager:Signal("GamemodeSystem", "Create", ModeId, Settings.MapId, "Easy")

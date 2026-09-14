@@ -117,8 +117,7 @@ function module:Auto(ModeId: string)
     Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = nil
 
     local GamemodeData = self:GetData()
-    local IsWaveToLeave = Settings.Leave and Settings.Wave ~= 0 and GamemodeData and GamemodeData.Wave and GamemodeData.Wave >= Settings.Wave
-    print("IsWaveToLeave", IsWaveToLeave)
+    local IsWaveToLeave = Settings.Leave and Settings.Wave ~= 0 and GamemodeData and GamemodeData.Stage and GamemodeData.Stage >= Settings.Wave
 
     if IsWaveToLeave then
         Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
@@ -136,9 +135,8 @@ function module:Auto(ModeId: string)
         Manager:Signal("GamemodeSystem", "Join", ModeId, HostId)
         return
     elseif not PlrModeId and Settings.EntryType == "Create" then
-        print("trying to create", ModeId, Settings.MapId)
         local NeededItem = Manager.Shared.GamemodeData[ModeId][Settings.MapId] and Manager.Shared.GamemodeData[ModeId][Settings.MapId].RequiredItem
-        if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then print("not enough items") return end
+        if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then return end
         
         Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+5
         Manager:Signal("GamemodeSystem", "Create", ModeId, Settings.MapId, "Easy")

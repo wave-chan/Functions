@@ -18,13 +18,14 @@ function module:Init(OwnManager, Tab, LoopCooldown)
         local LoopId = `GamemodeLoop_{ModeId}`
         local ToggleId = `autoGamemode_{ModeId}`
 
-        local Types = {}
+        local Types, HasItem = {}, false
         for TypeName, TypeInfo in pairs(ModeInfo) do
+            if TypeInfo.RequiredItem then HasItem = true end
             Types[math.max(TypeInfo.Order or 0, 1)] = TypeName
         end
 
         local EntryTypes = {"Join"}
-        if ModeInfo.RequiredItem then
+        if HasItem then
             table.insert(EntryTypes, "Create")
         end
 
@@ -111,14 +112,15 @@ function module:Auto(ModeId: string)
     if not Settings.Auto then return end
 
     --## COOLDOWN ##--
-    local LastClock = Manager.Cooldowns[`GamemodeAuto_{Id}`]
+    local LastClock = Manager.Cooldowns[`GamemodeAuto_{ModeId}`]
     if LastClock and os.clock() - LastClock < 0.05 then return end
-    Manager.Cooldowns[`GamemodeAuto_{Id}`] = nil
+    Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = nil
 
     local GamemodeData = self:GetData()
     local IsWaveToLeave = Settings.Leave and Settings.Wave ~= 0 and GamemodeData and GamemodeData.Wave and GamemodeData.Wave >= Settings.Wave
 
     if IsWaveToLeave then
+        Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
         Manager:Signal("Teleport", "To", Settings.MapToLeave)
         return
     end
@@ -128,9 +130,14 @@ function module:Auto(ModeId: string)
         local Diff, HostId = self:GetJoinInfo(ModeId, Settings.MapId)
         if not HostId then return end
 
+        Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
         Manager:Signal("GamemodeSystem", "Join", ModeId, HostId)
         return
     elseif not PlrModeId and Settings.EntryType == "Create" then
+        local NeededItem = Manager.Shared.GamemodeData[ModeId][Settings.MapId]
+        if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then return end
+        
+        Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
         Manager:Signal("GamemodeSystem", "Create", ModeId, Settings.MapId, "Easy")
         return
     end

@@ -140,8 +140,12 @@ function module:Auto(ModeId: string)
         local NeededItem = Manager.Shared.GamemodeData[ModeId][Settings.MapId] and Manager.Shared.GamemodeData[ModeId][Settings.MapId].RequiredItem
         if NeededItem and (Manager.Library.PlayerData.Items[NeededItem] or 0) < 1 then print("not enough items") return end
         
-        Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+3
+        Manager.Cooldowns[`GamemodeAuto_{ModeId}`] = os.clock()+5
         Manager:Signal("GamemodeSystem", "Create", ModeId, Settings.MapId, "Easy")
+
+        task.wait(3)
+
+        Manager:Signal("GamemodeSystem", "Start", ModeId, Manager.Player.UserId)
         return
     end
 

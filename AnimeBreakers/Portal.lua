@@ -3,8 +3,9 @@ local Portal = {
     Options = {},
 }
 
-function Portal:Init(Manager)
+function Portal:Init(Manager, Tab)
     self.Manager = Manager
+    self.Tab = Tab
     self.Data = Manager.Shared.GamemodeData.Portal
 
     for Rank, Data in pairs(self.Data) do
@@ -15,6 +16,25 @@ function Portal:Init(Manager)
 
     table.sort(self.Options, function(A, B)
         return (self.Data[A].Order or 999) < (self.Data[B].Order or 999)
+    end)
+
+    self.Enabled = false
+    self.Selected = {}
+    Tab:CreateDivider({ text = "Portal automation", line = true })
+    Tab:CreateToggle({ name = "Auto Portal", flag = "AutoPortal", value = false, callback = function(Value) self.Enabled = Value == true end })
+    Tab:CreateDropdown({ name = "Portals to Farm", flag = "PortalRanks", options = self.Options, value = {}, multiSelect = true, callback = function(Value) self.Selected = Value or {} end })
+    Tab:CreateToggle({ name = "Auto Join", flag = "AutoJoinPortal", value = false })
+    self.Status = Tab:CreateText({ name = "Portal Status", text = "Auto Portal disabled." })
+    task.spawn(function()
+        while Manager.Cache.Running do
+            if self.Enabled then
+                local Plan = self:Current(self.Selected, "Highest first")
+                self.Status:Set(Plan.State == "Ready" and ("Ready: " .. Plan.Rank) or Plan.State)
+            else
+                self.Status:Set("Auto Portal disabled.")
+            end
+            task.wait(0.5)
+        end
     end)
 end
 

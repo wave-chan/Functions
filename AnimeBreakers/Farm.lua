@@ -25,13 +25,13 @@ function Farm:Init(Manager, Tab)
                 local Enemy = Manager.Functions.Enemies:GetClosest(self.Selected)
                 local Character = Manager.Player.Character
                 if Enemy and Character then
-                    self.Status:Set("Farming " .. Enemy.Name)
+                    Manager.UI:Change(self.Status, "Farming " .. Enemy.Name)
                     Character:PivotTo(Enemy:GetPivot() * CFrame.new(0, 3, 0))
                 else
-                    self.Status:Set("Waiting for a selected enemy...")
+                    Manager.UI:Change(self.Status, "Waiting for a selected enemy...")
                 end
             else
-                self.Status:Set("Auto Farm disabled.")
+                Manager.UI:Change(self.Status, "Auto Farm disabled.")
             end
             task.wait(self.Enabled and 0.1 or 0.5)
         end

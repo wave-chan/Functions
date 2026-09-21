@@ -29,9 +29,9 @@ function Portal:Init(Manager, Tab)
         while Manager.Cache.Running do
             if self.Enabled then
                 local Plan = self:Current(self.Selected, "Highest first")
-                self.Status:Set(Plan.State == "Ready" and ("Ready: " .. Plan.Rank) or Plan.State)
+                Manager.UI:Change(self.Status, Plan.State == "Ready" and ("Ready: " .. Plan.Rank) or Plan.State)
             else
-                self.Status:Set("Auto Portal disabled.")
+                Manager.UI:Change(self.Status, "Auto Portal disabled.")
             end
             task.wait(0.5)
         end

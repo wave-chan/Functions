@@ -16,9 +16,9 @@ function Trial:Init(Manager, Tab)
                 local Mode = Manager.Player:GetAttribute("Mode")
                 if Mode ~= "Time Trial" then
                     Manager.Library.Remote:Fire("GamemodeSystem", "Enter", "Time Trial", "The Hallway", "Easy")
-                    self.Status:Set("Waiting to enter Time Trial...")
+                    Manager.UI:Change(self.Status, "Waiting to enter Time Trial...")
                 else
-                    self.Status:Set("Time Trial active.")
+                    Manager.UI:Change(self.Status, "Time Trial active.")
                 end
             end
             task.wait(self.Enabled and 1 or 2)

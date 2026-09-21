@@ -52,7 +52,7 @@ function Gacha:Init(Manager, Tab)
                     local Name = Custom and Custom.Name or Label
                     local Type = Custom and Custom.Type or nil
                     Manager.Library.Remote:Fire("GachaSystem", "Spin", Name, Type, {})
-                    self.Status:Set("Spinning " .. Label)
+                    Manager.UI:Change(self.Status, "Spinning " .. Label)
                     task.wait(0.15)
                     if not self.Enabled then break end
                 end
@@ -61,7 +61,7 @@ function Gacha:Init(Manager, Tab)
                 local Data = self.CustomNames[self.PetSelected]
                 if Data then
                     Manager.Library.Remote:Fire("SpinManagerSystem", "Add", Data.Name, Data.Type, {}, nil)
-                    self.Status:Set("Pet auto spin: " .. self.PetSelected)
+                    Manager.UI:Change(self.Status, "Pet auto spin: " .. self.PetSelected)
                 end
             end
             task.wait((self.Enabled or self.PetEnabled) and 0.5 or 1)

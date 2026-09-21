@@ -1,5 +1,15 @@
 return {
   UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/UI.lua"))(),
+  Enemies = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Enemies.lua"))(),
+  Equipment = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Equipment.lua"))(),
+  Farm = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Farm.lua"))(),
+  Gacha = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Gacha.lua"))(),
+  Gamemodes = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Gamemodes.lua"))(),
+  Misc = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Misc.lua"))(),
   ModeContext = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/ModeContext.lua"))(),
   Portal = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Portal.lua"))(),
+  Potions = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Potions.lua"))(),
+  Priority = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Priority.lua"))(),
+  Raid = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Raid.lua"))(),
+  Trial = loadstring(game:HttpGet("https://raw.githubusercontent.com/wave-chan/Functions/refs/heads/main/AnimeBreakers/Trial.lua"))(),
 }
